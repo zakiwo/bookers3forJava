@@ -14,6 +14,7 @@ public class AccountDAO {
 	private final String DB_USER = "sa";
 	private final String DB_PASS = "";
 	
+	//入力されたユーザーIDとパスワードで、Accountテーブルからユーザーを取得し、accountインスタンスを返す
 	public Account findByLogin(Login login) {
 		Account account = null;
 		
