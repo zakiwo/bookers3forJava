@@ -42,4 +42,26 @@ public class BookDAO {
 		}
 		return bookList;
 	}
+	
+	//データベースに新規登録する処理
+	public boolean create(Book book) {
+		try(Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)){
+			//insert文の準備
+			String sql = "INSERT INTO BOOK(TITLE, BODY) VALUES(?, ?)";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			
+			//insert文の?を入れる
+			pStmt.setString(1,  book.getTitle());
+			pStmt.setString(2, book.getBody());
+			
+			//insert文を実行、resultにはSQLを実行した行数が入る
+			int result = pStmt.executeUpdate();
+			if(result != 1) {
+				return false;
+			}
+		}catch (SQLException e) {
+			return false;
+		}
+		return true;
+	}
 }
